@@ -25,12 +25,12 @@ resource "aws_kms_key" "aws_backup_kms_key" {
         Resource = "*"
       },
       {
-        Sid = "Enable IAM User Permissions",
+        Sid    = "Enable IAM User Permissions",
         Effect = "Allow",
         Principal = {
           AWS = "*"
         },
-        Action = "kms:*",
+        Action   = "kms:*",
         Resource = "*"
       }
     ]
@@ -39,6 +39,6 @@ resource "aws_kms_key" "aws_backup_kms_key" {
 
 # Set an alias for the key
 resource "aws_kms_alias" "this" {
-  name = var.kms_key_alias
+  name          = var.kms_key_alias
   target_key_id = aws_kms_key.aws_backup_kms_key.key_id
 }

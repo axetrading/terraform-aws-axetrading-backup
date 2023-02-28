@@ -6,11 +6,11 @@ resource "aws_iam_role" "aws_backup_role" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect    = "Allow",
+        Effect = "Allow",
         Principal = {
           Service = "backup.amazonaws.com"
         },
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
       }
     ]
   })
@@ -18,13 +18,13 @@ resource "aws_iam_role" "aws_backup_role" {
 
 # IAM policy for AWS backups
 resource "aws_iam_policy" "aws_backup_policy" {
-  name   = var.iam_role_policy
+  name = var.iam_role_policy
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "rds:DescribeDBClusters",
           "rds:DescribeDBInstances",
           "rds:ListTagsForResource",
@@ -64,5 +64,5 @@ resource "aws_iam_role_policy_attachment" "aws_backup_role_policy_attachment" {
 
 resource "aws_iam_role_policy_attachment" "aws_backup_role_policy_restores" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
-  role = aws_iam_role.aws_backup_role.name
+  role       = aws_iam_role.aws_backup_role.name
 }

@@ -26,19 +26,19 @@ variable "backup_rule_name" {
 variable "backup_schedule" {
   type        = string
   description = "Cronjob for desired backup schedule"
-  default     = "cron(30 7 * * ? *)" 
+  default     = "cron(38 10 * * ? *)"
 }
 
 variable "backup_retention_days" {
   type        = string
   description = "Value for desired number of days to move backups to cold storage"
-  default     = 30 
+  default     = 30
 }
 
 variable "backup_plan_start_window" {
   type        = string
   description = "Value for desired number of days to move backups to cold storage"
-  default     = 60 
+  default     = 60
 }
 
 variable "backup_plan_complete_window" {
@@ -81,4 +81,17 @@ variable "kms_key_alias" {
   type        = string
   description = "Name of the IAM role used for AWS Backups"
   default     = "alias/aws-backup-key"
+}
+
+### SNS variables
+variable "sns_topic_name" {
+  type        = string
+  description = "Name of the SNS topic name used for AWS Backups"
+  default     = "backup-vault-events"
+}
+
+variable "backup_vault_events" {
+  type        = list(string)
+  description = "List of events to trigger the backup vault notification"
+  default     = ["BACKUP_JOB_STARTED", "RESTORE_JOB_COMPLETED"]
 }
