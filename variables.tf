@@ -56,7 +56,7 @@ variable "backup_selection_name" {
 variable "backup_selection_conditions" {
   type = map(string)
   default = {
-    Backup     = null
+    Backup      = null
     Environment = null
   }
 }
