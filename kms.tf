@@ -16,8 +16,8 @@ resource "aws_kms_alias" "this" {
 # Data source for the KMS key policy document
 data "aws_iam_policy_document" "kms_key_policy" {
   statement {
-    sid       = "Allow access to key"
-    actions   = [
+    sid = "Allow access to key"
+    actions = [
       "kms:Encrypt",
       "kms:Decrypt",
       "kms:ReEncrypt*",
@@ -32,19 +32,19 @@ data "aws_iam_policy_document" "kms_key_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [ "arn:aws:iam::${local.account_id}:role/${aws_iam_role.aws_backup_role.name}" ]
+      identifiers = ["arn:aws:iam::${local.account_id}:role/${aws_iam_role.aws_backup_role.name}"]
     }
   }
 
   statement {
     sid       = "Restrict IAM user permissions to current AWS account ID"
-    actions   = [ "kms:*" ]
+    actions   = ["kms:*"]
     resources = ["*"]
     effect    = "Allow"
 
     principals {
       type        = "AWS"
-      identifiers = [ "arn:aws:iam::${local.account_id}:root" ]
+      identifiers = ["arn:aws:iam::${local.account_id}:root"]
     }
   }
 }

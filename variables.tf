@@ -67,7 +67,7 @@ variable "backup_selection_condition_value" {
 variable "backup_selection_conditions" {
   type = map(string)
   default = {
-    Backup = "true"
+    Backup     = "true"
     Environmet = "dev"
   }
 }

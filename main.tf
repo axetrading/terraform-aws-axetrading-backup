@@ -6,9 +6,9 @@ resource "aws_backup_vault" "this" {
 # Data source for the AWS Backup vault policy document
 data "aws_iam_policy_document" "backup_vault_policy" {
   statement {
-    sid       = "default"
-    effect    = "Allow"
-    actions   = [
+    sid    = "default"
+    effect = "Allow"
+    actions = [
       "backup:DescribeBackupVault",
       "backup:DeleteBackupVault",
       "backup:PutBackupVaultAccessPolicy",
@@ -18,11 +18,11 @@ data "aws_iam_policy_document" "backup_vault_policy" {
       "backup:GetBackupVaultNotifications",
       "backup:PutBackupVaultNotifications"
     ]
-    resources = [ aws_backup_vault.this.arn ]
+    resources = [aws_backup_vault.this.arn]
 
     principals {
       type        = "AWS"
-      identifiers = [ aws_iam_role.aws_backup_role.arn ]
+      identifiers = [aws_iam_role.aws_backup_role.arn]
     }
   }
 }
@@ -56,9 +56,9 @@ resource "aws_backup_selection" "this" {
 
   dynamic "condition" {
     for_each = {
-      for key, value in var.backup_selection_conditions:
+      for key, value in var.backup_selection_conditions :
       "condition_${key}" => {
-        key = key
+        key   = key
         value = value
       }
     }
@@ -70,7 +70,7 @@ resource "aws_backup_selection" "this" {
     }
   }
 
-/* 
+  /* 
   dynamic "condition" {
     for_each = var.backup_selection_conditions
     content {
@@ -81,7 +81,7 @@ resource "aws_backup_selection" "this" {
     }
   } */
 
-/* 
+  /* 
   condition {
     string_equals {
       key   = var.backup_selection_condition_key
