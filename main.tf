@@ -54,41 +54,19 @@ resource "aws_backup_selection" "this" {
   plan_id      = aws_backup_plan.this.id
   resources    = ["*"]
 
-  dynamic "condition" {
-    for_each = {
-      for key, value in var.backup_selection_conditions :
-      "condition_${key}" => {
-        key   = key
-        value = value
+  condition {
+    dynamic "string_equals" {
+      for_each = {
+        for key, value in var.backup_selection_conditions :
+        "condition_${key}" => {
+          key   = key
+          value = value
+        }
       }
-    }
-    content {
-      string_equals {
-        key   = "aws:ResourceTag/${condition.value.key}"
-        value = condition.value.value
+      content {
+        key   = "aws:ResourceTag/${string_equals.value.key}"
+        value = string_equals.value.value
       }
     }
   }
-
-  /* 
-  dynamic "condition" {
-    for_each = var.backup_selection_conditions
-    content {
-      string_equals {
-        key   = "aws:ResourceTag/${condition.key}"
-        value = condition.value
-      }
-    }
-  } */
-
-  /* 
-  condition {
-    string_equals {
-      key   = var.backup_selection_condition_key
-      value = var.backup_selection_condition_value
-    }
-  } */
-
-
-
 }
