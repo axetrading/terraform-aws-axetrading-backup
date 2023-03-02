@@ -26,7 +26,7 @@ variable "backup_rule_name" {
 variable "backup_schedule" {
   type        = string
   description = "Cronjob for desired backup schedule"
-  default     = "cron(38 10 * * ? *)"
+  default     = "cron(21 15 * * ? *)"
 }
 
 variable "backup_retention_days" {
@@ -53,7 +53,7 @@ variable "backup_selection_name" {
   default     = "backup-selection"
 }
 
-variable "backup_selection_condition_key" {
+/* variable "backup_selection_condition_key" {
   type    = string
   default = "aws:ResourceTag/Backup"
 }
@@ -61,7 +61,25 @@ variable "backup_selection_condition_key" {
 variable "backup_selection_condition_value" {
   type    = string
   default = "true"
+} */
+
+
+variable "backup_selection_conditions" {
+  type = map(string)
+  default = {
+    Backup = "true"
+    Environmet = "dev"
+  }
 }
+
+/* variable "backup_selection_conditions" {
+  type = list(map(string))
+  default = [
+    { key = "Backup", value = "true" },
+    { key = "Component", value = "ebs" }
+  ]
+} */
+
 
 #### IAM variables
 variable "iam_role_name" {
