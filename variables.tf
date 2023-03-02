@@ -53,33 +53,13 @@ variable "backup_selection_name" {
   default     = "backup-selection"
 }
 
-/* variable "backup_selection_condition_key" {
-  type    = string
-  default = "aws:ResourceTag/Backup"
-}
-
-variable "backup_selection_condition_value" {
-  type    = string
-  default = "true"
-} */
-
-
 variable "backup_selection_conditions" {
   type = map(string)
   default = {
-    Backup     = "true"
-    Environmet = "dev"
+    Backup     = null
+    Environment = null
   }
 }
-
-/* variable "backup_selection_conditions" {
-  type = list(map(string))
-  default = [
-    { key = "Backup", value = "true" },
-    { key = "Component", value = "ebs" }
-  ]
-} */
-
 
 #### IAM variables
 variable "iam_role_name" {
