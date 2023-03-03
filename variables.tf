@@ -26,7 +26,7 @@ variable "backup_rule_name" {
 variable "backup_schedule" {
   type        = string
   description = "Cronjob for desired backup schedule"
-  default     = "cron(21 15 * * ? *)"
+  default     = "cron(30 07 * * ? *)"
 }
 
 variable "backup_retention_days" {

@@ -1,3 +1,10 @@
+/**
+ * # AWS Backup Terraform Module
+ *
+ * This module produce aws backup for resources like RDS,EBS based on tags that they have.
+ *
+ */
+
 resource "aws_backup_vault" "this" {
   name        = var.backup_vault_name
   kms_key_arn = aws_kms_key.aws_backup_kms_key.arn
