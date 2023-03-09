@@ -97,5 +97,5 @@ variable "backup_vault_events" {
 
 variable "backup_selection" {
   description = "A map of backup selection configurations, where each key represents a unique backup selection"
-  type = map(any)
+  type        = map(any)
 }

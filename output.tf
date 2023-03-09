@@ -23,7 +23,7 @@ output "backup_plan_id" {
 
 output "backup_selection_plan_id" {
   description = "ID of the backup selection plan"
-  value = [for selection in aws_backup_selection.this : selection.id]
+  value       = [for selection in aws_backup_selection.this : selection.id]
 }
 
 # SNS
