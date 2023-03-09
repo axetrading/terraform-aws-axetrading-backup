@@ -61,6 +61,7 @@ variable "backup_selection_conditions" {
   }
 }
 
+
 #### IAM variables
 variable "iam_role_name" {
   type        = string
@@ -92,4 +93,9 @@ variable "backup_vault_events" {
   type        = list(string)
   description = "List of events to trigger the backup vault notification"
   default     = ["BACKUP_JOB_STARTED", "RESTORE_JOB_COMPLETED"]
+}
+
+variable "backup_selection" {
+  description = "A map of backup selection configurations, where each key represents a unique backup selection"
+  type = map(any)
 }

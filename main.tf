@@ -56,7 +56,8 @@ resource "aws_backup_plan" "this" {
 }
 
 resource "aws_backup_selection" "this" {
-  name         = var.backup_selection_name
+  for_each     = var.backup_selection
+  name         = each.key
   iam_role_arn = aws_iam_role.aws_backup_role.arn
   plan_id      = aws_backup_plan.this.id
   resources    = ["*"]
@@ -64,7 +65,7 @@ resource "aws_backup_selection" "this" {
   condition {
     dynamic "string_equals" {
       for_each = {
-        for key, value in var.backup_selection_conditions :
+        for key, value in each.value :
         "condition_${key}" => {
           key   = key
           value = value
@@ -77,3 +78,4 @@ resource "aws_backup_selection" "this" {
     }
   }
 }
+
