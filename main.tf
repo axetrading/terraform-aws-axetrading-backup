@@ -5,7 +5,7 @@
  *
  */
 locals {
-  create_iam_role = var.create_role == true && var.provided_iam_role_arn == "" ? true : false
+  create_iam_role = var.create_role && var.provided_iam_role_arn == "" ? true : false
   role_arn        = local.create_iam_role ? aws_iam_role.aws_backup_role[0].arn : var.provided_iam_role_arn
 }
 
