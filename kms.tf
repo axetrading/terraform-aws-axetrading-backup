@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "kms_key_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${local.account_id}:role/${aws_iam_role.aws_backup_role.name}"]
+      identifiers = [local.role_arn]
     }
   }
 

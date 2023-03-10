@@ -4,6 +4,10 @@
  * This module produce aws backup for resources like RDS,EBS based on tags that they have.
  *
  */
+locals {
+  create_iam_role = var.create_role == true && var.provided_iam_role_arn == "" ? true : false
+  role_arn        = local.create_iam_role ? aws_iam_role.aws_backup_role[0].arn : var.provided_iam_role_arn
+}
 
 resource "aws_backup_vault" "this" {
   name        = var.backup_vault_name
@@ -29,7 +33,7 @@ data "aws_iam_policy_document" "backup_vault_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_role.aws_backup_role.arn]
+      identifiers = [local.role_arn]
     }
   }
 }
@@ -58,7 +62,7 @@ resource "aws_backup_plan" "this" {
 resource "aws_backup_selection" "this" {
   for_each     = var.backup_selection
   name         = each.key
-  iam_role_arn = aws_iam_role.aws_backup_role.arn
+  iam_role_arn = local.role_arn
   plan_id      = aws_backup_plan.this.id
   resources    = ["*"]
 

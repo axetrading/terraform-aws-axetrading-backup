@@ -1,7 +1,7 @@
 # IAM 
 output "iam_role_arn" {
   description = "ARN of the IAM role"
-  value       = aws_iam_role.aws_backup_role.arn
+  value       = try(aws_iam_role.aws_backup_role[0].arn, "")
 }
 
 # KMS
