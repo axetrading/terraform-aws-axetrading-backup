@@ -64,9 +64,9 @@ variable "backup_selection_conditions" {
 
 #### IAM variables
 variable "create_role" {
-  type = bool
+  type        = bool
   description = "Wheter to create an IAM role or not"
-  default = true
+  default     = true
 }
 
 variable "iam_role_name" {
@@ -80,7 +80,7 @@ variable "provided_iam_role_arn" {
   description = "The Amazon Resource Name (ARN) of an existing IAM role that should be used by AWS Backups. The ARN should have the format `arn:aws:iam::account-id:role/role-name`. If not provided, a new IAM role will be created."
   default     = "arn:aws:iam::790762862953:role/aws-backup-role"
   validation {
-    condition = length(var.provided_iam_role_arn) == 0 || can(regex("^arn:aws:iam::[0-9]{12}:role/.*", var.provided_iam_role_arn))
+    condition     = length(var.provided_iam_role_arn) == 0 || can(regex("^arn:aws:iam::[0-9]{12}:role/.*", var.provided_iam_role_arn))
     error_message = "The provided IAM role ARN is not valid. The ARN should have the format `arn:aws:iam::account-id:role/role-name`."
   }
 }

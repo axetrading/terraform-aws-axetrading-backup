@@ -21,7 +21,7 @@ resource "aws_iam_role" "aws_backup_role" {
 
 # Attach the policy to the IAM role
 resource "aws_iam_role_policy_attachment" "aws_backup_role_policy_backup" {
-  count = local.create_iam_role ? 1 : 0
+  count      = local.create_iam_role ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
   role       = aws_iam_role.aws_backup_role[0].name
 }
