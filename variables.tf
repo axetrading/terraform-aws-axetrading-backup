@@ -4,18 +4,12 @@ variable "region" {
   default     = "eu-west-2"
 }
 
-#### AWS Backup variables
-variable "backup_vault_name" {
+variable "name" {
   type        = string
-  description = "Name for AWS Backup Vault"
-  default     = null
+  description = "The base name used to create the KMS key, SNS topic, IAM role, backup vault, and plan."
 }
 
-variable "backup_vault_plan" {
-  type        = string
-  description = "Name for AWS Backup Vault Plan"
-  default     = null
-}
+#### AWS Backup variables
 
 variable "backup_rule_name" {
   type        = string
@@ -92,26 +86,34 @@ variable "iam_role_policy" {
 }
 
 ### KMS variables
-variable "kms_key_alias" {
+variable "kms_key_id" {
   type        = string
-  description = "Name of the IAM role used for AWS Backups"
-  default     = "alias/aws-backup-key"
+  description = "The KMS master key ID to use for encrypting messages sent to the SNS topic. If not specified, the default KMS key for the region will be used."
+  default     = null
 }
 
+
 ### SNS variables
-variable "sns_topic_name" {
-  type        = string
-  description = "Name of the SNS topic name used for AWS Backups"
-  default     = "backup-vault-events"
-}
 
 variable "backup_vault_events" {
   type        = list(string)
   description = "List of events to trigger the backup vault notification"
-  default     = ["BACKUP_JOB_STARTED", "RESTORE_JOB_COMPLETED"]
+  default     = ["BACKUP_JOB_STARTED", "RESTORE_JOB_COMPLETED", "BACKUP_JOB_FAILED", "BACKUP_JOB_FAILED"]
 }
 
 variable "backup_selection" {
   description = "A map of backup selection configurations, where each key represents a unique backup selection"
   type        = map(any)
+}
+
+variable "email_recipients" {
+  description = "A list of email addresses that should receive the SNS topic notifications."
+  type        = list(string)
+  default     = []
+  validation {
+    condition = alltrue([
+      for recipient in var.email_recipients : can(regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$", recipient))
+    ])
+    error_message = "All recipients must be valid email addresses."
+  }
 }

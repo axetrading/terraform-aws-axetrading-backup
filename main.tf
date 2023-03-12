@@ -5,12 +5,11 @@
  *
  */
 locals {
-  create_iam_role = var.create_role == true && var.provided_iam_role_arn == "" ? true : false
-  role_arn        = local.create_iam_role ? aws_iam_role.aws_backup_role[0].arn : var.provided_iam_role_arn
+  role_arn = var.create_role ? aws_iam_role.aws_backup_role[0].arn : var.provided_iam_role_arn
 }
 
 resource "aws_backup_vault" "this" {
-  name        = var.backup_vault_name
+  name        = format("%s-%s", var.name, "vault")
   kms_key_arn = aws_kms_key.aws_backup_kms_key.arn
 }
 
@@ -44,7 +43,7 @@ resource "aws_backup_vault_policy" "this" {
 }
 
 resource "aws_backup_plan" "this" {
-  name = var.backup_vault_plan
+  name = format("%s-%s", var.name, "plan")
 
   rule {
     rule_name         = var.backup_rule_name

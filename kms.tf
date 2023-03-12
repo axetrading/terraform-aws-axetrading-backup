@@ -9,7 +9,7 @@ resource "aws_kms_key" "aws_backup_kms_key" {
 
 # Set an alias for the key
 resource "aws_kms_alias" "this" {
-  name          = var.kms_key_alias
+  name_prefix   = format("%s/%s-", "alias/", var.name)
   target_key_id = aws_kms_key.aws_backup_kms_key.key_id
 }
 

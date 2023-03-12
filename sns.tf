@@ -1,5 +1,6 @@
 resource "aws_sns_topic" "this" {
-  name = var.sns_topic_name
+  name_prefix       = format("%s-vault-events-", var.name)
+  kms_master_key_id = try(aws_kms_alias.this.id, var.kms_key_id, null)
 }
 
 data "aws_iam_policy_document" "this" {
@@ -28,6 +29,13 @@ data "aws_iam_policy_document" "this" {
 resource "aws_sns_topic_policy" "this" {
   arn    = aws_sns_topic.this.arn
   policy = data.aws_iam_policy_document.this.json
+}
+
+resource "aws_sns_topic_subscription" "this" {
+  for_each  = toset(var.email_recipients)
+  topic_arn = aws_sns_topic.this.arn
+  protocol  = "email"
+  endpoint  = each.key
 }
 
 resource "aws_backup_vault_notifications" "this" {
