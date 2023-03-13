@@ -33,6 +33,7 @@ This module produce aws backup for resources like RDS,EBS based on tags that the
 | [aws_kms_key.aws_backup_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_sns_topic.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_policy) | resource |
+| [aws_sns_topic_subscription.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.backup_vault_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.iam_role_assume_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -51,16 +52,15 @@ This module produce aws backup for resources like RDS,EBS based on tags that the
 | <a name="input_backup_selection"></a> [backup\_selection](#input\_backup\_selection) | A map of backup selection configurations, where each key represents a unique backup selection | `map(any)` | n/a | yes |
 | <a name="input_backup_selection_conditions"></a> [backup\_selection\_conditions](#input\_backup\_selection\_conditions) | n/a | `map(string)` | <pre>{<br>  "Backup": null,<br>  "Environment": null<br>}</pre> | no |
 | <a name="input_backup_selection_name"></a> [backup\_selection\_name](#input\_backup\_selection\_name) | Value for AWS Backup selection name, which association is made by tags | `string` | `"backup-selection"` | no |
-| <a name="input_backup_vault_events"></a> [backup\_vault\_events](#input\_backup\_vault\_events) | List of events to trigger the backup vault notification | `list(string)` | <pre>[<br>  "BACKUP_JOB_STARTED",<br>  "RESTORE_JOB_COMPLETED"<br>]</pre> | no |
-| <a name="input_backup_vault_name"></a> [backup\_vault\_name](#input\_backup\_vault\_name) | Name for AWS Backup Vault | `string` | `null` | no |
-| <a name="input_backup_vault_plan"></a> [backup\_vault\_plan](#input\_backup\_vault\_plan) | Name for AWS Backup Vault Plan | `string` | `null` | no |
+| <a name="input_backup_vault_events"></a> [backup\_vault\_events](#input\_backup\_vault\_events) | List of events to trigger the backup vault notification | `list(string)` | <pre>[<br>  "BACKUP_JOB_STARTED",<br>  "RESTORE_JOB_COMPLETED",<br>  "BACKUP_JOB_FAILED",<br>  "BACKUP_JOB_FAILED"<br>]</pre> | no |
 | <a name="input_create_role"></a> [create\_role](#input\_create\_role) | Wheter to create an IAM role or not | `bool` | `true` | no |
+| <a name="input_email_recipients"></a> [email\_recipients](#input\_email\_recipients) | A list of email addresses that should receive the SNS topic notifications. | `list(string)` | `[]` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the IAM role used for AWS Backups | `string` | `"aws-backup-role"` | no |
 | <a name="input_iam_role_policy"></a> [iam\_role\_policy](#input\_iam\_role\_policy) | Name of the IAM role used for AWS Backups | `string` | `"aws-backup-policy"` | no |
-| <a name="input_kms_key_alias"></a> [kms\_key\_alias](#input\_kms\_key\_alias) | Name of the IAM role used for AWS Backups | `string` | `"alias/aws-backup-key"` | no |
+| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The KMS master key ID to use for encrypting messages sent to the SNS topic. If not specified, the default KMS key for the region will be used. | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | The base name used to create the KMS key, SNS topic, IAM role, backup vault, and plan. | `string` | n/a | yes |
 | <a name="input_provided_iam_role_arn"></a> [provided\_iam\_role\_arn](#input\_provided\_iam\_role\_arn) | The Amazon Resource Name (ARN) of an existing IAM role that should be used by AWS Backups. The ARN should have the format `arn:aws:iam::account-id:role/role-name`. If not provided, a new IAM role will be created. | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | `"eu-west-2"` | no |
-| <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | Name of the SNS topic name used for AWS Backups | `string` | `"backup-vault-events"` | no |
 
 ## Outputs
 
