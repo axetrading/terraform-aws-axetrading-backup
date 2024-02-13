@@ -26,7 +26,7 @@ variable "backup_schedule" {
 variable "backup_retention_days" {
   type        = string
   description = "Value for desired number of days to move backups to cold storage"
-  default     = 30
+  default     = 60
 }
 
 variable "backup_plan_start_window" {
@@ -53,6 +53,16 @@ variable "backup_selection_conditions" {
     Backup      = null
     Environment = null
   }
+}
+
+variable "backup_vault_lock_config" {
+  type = object({
+    changeable_for_days = optional(number)
+    max_retention_days  = optional(number)
+    min_retention_days  = optional(number)
+  })
+  description = "The lock configuration for the backup vault. If not specified, the backup vault will not have a lock configuration."
+  default     = null
 }
 
 
@@ -116,4 +126,13 @@ variable "email_recipients" {
     ])
     error_message = "All recipients must be valid email addresses."
   }
+}
+
+
+## Tags
+
+variable "tags" {
+  type        = map(string)
+  description = "A map of tags to add to all resources."
+  default     = {}
 }

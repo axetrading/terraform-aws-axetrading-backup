@@ -11,7 +11,17 @@ locals {
 resource "aws_backup_vault" "this" {
   name        = format("%s-%s", var.name, "vault")
   kms_key_arn = aws_kms_key.aws_backup_kms_key.arn
+  tags        = var.tags
 }
+
+resource "aws_backup_vault_lock_configuration" "this" {
+  count               = var.backup_vault_lock_config != null ? 1 : 0
+  backup_vault_name   = aws_backup_vault.this.name
+  changeable_for_days = var.backup_vault_lock_config.changeable_for_days
+  max_retention_days  = var.backup_vault_lock_config.max_retention_days
+  min_retention_days  = var.backup_vault_lock_config.min_retention_days
+}
+
 
 # Data source for the AWS Backup vault policy document
 data "aws_iam_policy_document" "backup_vault_policy" {
