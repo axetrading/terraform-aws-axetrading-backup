@@ -21,7 +21,9 @@ This module produce aws backup for resources like RDS,EBS based on tags that the
 
 | Name | Type |
 |------|------|
+| [aws_backup_framework.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_framework) | resource |
 | [aws_backup_plan.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_plan) | resource |
+| [aws_backup_report_plan.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_report_plan) | resource |
 | [aws_backup_selection.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_selection) | resource |
 | [aws_backup_vault.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_vault) | resource |
 | [aws_backup_vault_lock_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_vault_lock_configuration) | resource |
@@ -57,18 +59,21 @@ This module produce aws backup for resources like RDS,EBS based on tags that the
 | <a name="input_backup_vault_lock_config"></a> [backup\_vault\_lock\_config](#input\_backup\_vault\_lock\_config) | The lock configuration for the backup vault. If not specified, the backup vault will not have a lock configuration. | <pre>object({<br>    changeable_for_days = optional(number)<br>    max_retention_days  = optional(number)<br>    min_retention_days  = optional(number)<br>  })</pre> | `null` | no |
 | <a name="input_create_role"></a> [create\_role](#input\_create\_role) | Wheter to create an IAM role or not | `bool` | `true` | no |
 | <a name="input_email_recipients"></a> [email\_recipients](#input\_email\_recipients) | A list of email addresses that should receive the SNS topic notifications. | `list(string)` | `[]` | no |
+| <a name="input_framework_controls"></a> [framework\_controls](#input\_framework\_controls) | A list of controls and their input parameters for the AWS Backup Framework | <pre>list(object({<br>    name = string<br>    input_parameters = list(object({<br>      name  = string<br>      value = string<br>    }))<br>    scope = list(object({<br>      compliance_resource_types = list(string)<br>    }))<br>  }))</pre> | `null` | no |
 | <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | Name of the IAM role used for AWS Backups | `string` | `"aws-backup-role"` | no |
 | <a name="input_iam_role_policy"></a> [iam\_role\_policy](#input\_iam\_role\_policy) | Name of the IAM role used for AWS Backups | `string` | `"aws-backup-policy"` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The KMS master key ID to use for encrypting messages sent to the SNS topic. If not specified, the default KMS key for the region will be used. | `string` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | The base name used to create the KMS key, SNS topic, IAM role, backup vault, and plan. | `string` | n/a | yes |
 | <a name="input_provided_iam_role_arn"></a> [provided\_iam\_role\_arn](#input\_provided\_iam\_role\_arn) | The Amazon Resource Name (ARN) of an existing IAM role that should be used by AWS Backups. The ARN should have the format `arn:aws:iam::account-id:role/role-name`. If not provided, a new IAM role will be created. | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | `"eu-west-2"` | no |
+| <a name="input_reports"></a> [reports](#input\_reports) | The default cache behavior for this distribution. | <pre>list(object({<br>    name               = string<br>    description        = optional(string, null)<br>    formats            = optional(list(string), null)<br>    s3_bucket_name     = string<br>    s3_key_prefix      = optional(string, null)<br>    report_template    = string<br>    accounts           = optional(list(string), null)<br>    organization_units = optional(list(string), null)<br>    regions            = optional(list(string), null)<br>    framework_arns     = optional(list(string), [])<br>  }))</pre> | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources. | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_backup_framework_arn"></a> [backup\_framework\_arn](#output\_backup\_framework\_arn) | ARN of the backup framework |
 | <a name="output_backup_plan_id"></a> [backup\_plan\_id](#output\_backup\_plan\_id) | ID of the backup plan |
 | <a name="output_backup_plan_name"></a> [backup\_plan\_name](#output\_backup\_plan\_name) | The name of the AWS Backup plan that was created. |
 | <a name="output_backup_selection_plan_id"></a> [backup\_selection\_plan\_id](#output\_backup\_selection\_plan\_id) | ID of the backup selection plan |

@@ -128,6 +128,20 @@ variable "email_recipients" {
   }
 }
 
+variable "framework_controls" {
+  description = "A list of controls and their input parameters for the AWS Backup Framework"
+  type = list(object({
+    name = string
+    input_parameters = list(object({
+      name  = string
+      value = string
+    }))
+    scope = list(object({
+      compliance_resource_types = list(string)
+    }))
+  }))
+  default = null
+}
 
 ## Tags
 
@@ -135,4 +149,21 @@ variable "tags" {
   type        = map(string)
   description = "A map of tags to add to all resources."
   default     = {}
+}
+
+variable "reports" {
+  description = "The default cache behavior for this distribution."
+  type = list(object({
+    name               = string
+    description        = optional(string, null)
+    formats            = optional(list(string), null)
+    s3_bucket_name     = string
+    s3_key_prefix      = optional(string, null)
+    report_template    = string
+    accounts           = optional(list(string), null)
+    organization_units = optional(list(string), null)
+    regions            = optional(list(string), null)
+    framework_arns     = optional(list(string), [])
+  }))
+  default = []
 }

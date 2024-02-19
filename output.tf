@@ -58,3 +58,8 @@ output "backup_sns_topic_name" {
   description = "ARN of the SNS topic used for AWS backup notifications"
   value       = aws_sns_topic.this.name
 }
+
+output "backup_framework_arn" {
+  description = "ARN of the backup framework"
+  value       = var.framework_controls != null ? aws_backup_framework.this[0].arn : null
+}

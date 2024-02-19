@@ -92,3 +92,60 @@ resource "aws_backup_selection" "this" {
   }
 }
 
+resource "aws_backup_framework" "this" {
+  count       = var.framework_controls != null ? 1 : 0
+  name        = replace(format("%s-%s", var.name, "backup-framework"), "-", "_")
+  description = "Framework for ${format("%s", var.name)} AWS Backup to evaluate compliance of resources against a set of rules"
+
+  dynamic "control" {
+    for_each = var.framework_controls
+
+    content {
+      name = control.value.name
+
+      dynamic "input_parameter" {
+        for_each = control.value.input_parameters
+
+        content {
+          name  = input_parameter.value.name
+          value = input_parameter.value.value
+        }
+      }
+
+      dynamic "scope" {
+        for_each = control.value.scope
+
+        content {
+          compliance_resource_types = scope.value.compliance_resource_types
+        }
+      }
+    }
+  }
+
+  tags = var.tags
+}
+
+
+resource "aws_backup_report_plan" "this" {
+  for_each = { for report in var.reports : report.name => report }
+
+  name        = each.value.name
+  description = each.value.description
+
+  report_delivery_channel {
+    formats        = each.value.formats
+    s3_bucket_name = each.value.s3_bucket_name
+    s3_key_prefix  = each.value.s3_key_prefix
+  }
+
+  report_setting {
+    report_template      = each.value.report_template
+    accounts             = each.value.accounts
+    organization_units   = each.value.organization_units
+    regions              = each.value.regions
+    framework_arns       = var.framework_controls != null ? concat([aws_backup_framework.this[0].arn], each.value.framework_arns) : each.value.framework_arns
+    number_of_frameworks = length(each.value.framework_arns)
+  }
+
+  tags = var.tags
+}
