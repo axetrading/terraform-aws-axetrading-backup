@@ -129,6 +129,7 @@ resource "aws_backup_framework" "this" {
   timeouts {
     create = "10m"
     delete = "10m"
+    update = "10m"
   }
 }
 
