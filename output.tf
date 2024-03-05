@@ -63,3 +63,8 @@ output "backup_framework_arn" {
   description = "ARN of the backup framework"
   value       = var.framework_controls != null ? aws_backup_framework.this[0].arn : null
 }
+
+output "backup_framework_id" {
+  description = "Name of the backup framework"
+  value       = var.framework_controls != null ? aws_backup_framework.this[0].id : null
+}

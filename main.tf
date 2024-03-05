@@ -123,12 +123,12 @@ resource "aws_backup_framework" "this" {
   }
 
   tags = var.tags
+  
   timeouts {
     create = "10m"
     delete = "10m"
   }
 }
-
 
 resource "aws_backup_report_plan" "this" {
   for_each = { for report in var.reports : report.name => report }
