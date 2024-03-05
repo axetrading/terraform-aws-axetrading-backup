@@ -74,6 +74,7 @@ This module produce aws backup for resources like RDS,EBS based on tags that the
 | Name | Description |
 |------|-------------|
 | <a name="output_backup_framework_arn"></a> [backup\_framework\_arn](#output\_backup\_framework\_arn) | ARN of the backup framework |
+| <a name="output_backup_framework_id"></a> [backup\_framework\_id](#output\_backup\_framework\_id) | Name of the backup framework |
 | <a name="output_backup_plan_id"></a> [backup\_plan\_id](#output\_backup\_plan\_id) | ID of the backup plan |
 | <a name="output_backup_plan_name"></a> [backup\_plan\_name](#output\_backup\_plan\_name) | The name of the AWS Backup plan that was created. |
 | <a name="output_backup_selection_plan_id"></a> [backup\_selection\_plan\_id](#output\_backup\_selection\_plan\_id) | ID of the backup selection plan |
