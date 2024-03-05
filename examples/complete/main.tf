@@ -61,7 +61,9 @@ module "aws_backup_test" {
       ],
       scope = [
         {
-          compliance_resource_types = ["EBS", "RDS", "EFS", "EC2", "Aurora"]
+          tags = {
+            Backup = "true"
+          }
         }
       ]
     },
