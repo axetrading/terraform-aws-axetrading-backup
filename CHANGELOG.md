@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.3.1](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.3.0...v1.3.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* fixed scope for aws_backup_framework ([e64c223](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/e64c223ab167b108d01a63739d2ca6f9f1d747db))
+
 ## [1.3.0](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.2.2...v1.3.0) (2024-03-05)
 
 
