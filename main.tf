@@ -123,7 +123,7 @@ resource "aws_backup_framework" "this" {
   }
 
   tags = var.tags
-  
+
   timeouts {
     create = "10m"
     delete = "10m"
