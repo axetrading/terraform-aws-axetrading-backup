@@ -137,9 +137,9 @@ variable "framework_controls" {
       value = string
     }))
     scope = list(object({
+      compliance_resource_ids   = optional(list(string), null)
       compliance_resource_types = optional(list(string), null)
       tags                      = optional(map(string), null)
-      complience_resource_ids   = optional(list(string), null)
     }))
   }))
   default = null

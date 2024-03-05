@@ -117,6 +117,8 @@ resource "aws_backup_framework" "this" {
 
         content {
           compliance_resource_types = scope.value.compliance_resource_types
+          compliance_resource_ids   = scope.value.compliance_resource_ids
+          tags                      = scope.value.tags
         }
       }
     }
