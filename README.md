@@ -23,6 +23,7 @@ This module produce aws backup for resources like RDS,EBS based on tags that the
 |------|------|
 | [aws_backup_framework.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_framework) | resource |
 | [aws_backup_plan.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_plan) | resource |
+| [aws_backup_region_settings.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_region_settings) | resource |
 | [aws_backup_report_plan.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_report_plan) | resource |
 | [aws_backup_selection.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_selection) | resource |
 | [aws_backup_vault.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_vault) | resource |
