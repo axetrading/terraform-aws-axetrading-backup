@@ -8,6 +8,22 @@ locals {
   role_arn = var.create_role ? aws_iam_role.aws_backup_role[0].arn : var.provided_iam_role_arn
 }
 
+resource "aws_backup_region_settings" "this" {
+  resource_type_opt_in_preference = {
+    "Aurora"          = true
+    "DocumentDB"      = false
+    "DynamoDB"        = true
+    "EBS"             = true
+    "EC2"             = true
+    "EFS"             = true
+    "FSx"             = true
+    "Neptune"         = false
+    "RDS"             = true
+    "Storage Gateway" = false
+    "VirtualMachine"  = false
+  }
+}
+
 resource "aws_backup_vault" "this" {
   name        = format("%s-%s", var.name, "vault")
   kms_key_arn = aws_kms_key.aws_backup_kms_key.arn
