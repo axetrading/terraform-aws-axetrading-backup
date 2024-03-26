@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.3.2](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.3.1...v1.3.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* change default value for update timeout from 2m to 10m ([9aad7c1](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/9aad7c1e6db4b72e261af6ce0e1cc52872eafa02))
+
 ### [1.3.1](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.3.0...v1.3.1) (2024-03-05)
 
 
