@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.3.2...v1.4.0) (2024-03-26)
+
+
+### Features
+
+* adding backup settings resource ([ad0f5e9](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/ad0f5e9ffd3c783322b37e44ce816f610c976405))
+* adding backup settings resource ([4244e5d](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/4244e5db6fc4f0e32ac828848561328cfa2b9697))
+
 ### [1.3.2](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.3.1...v1.3.2) (2024-03-05)
 
 
