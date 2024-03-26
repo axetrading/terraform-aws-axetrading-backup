@@ -167,7 +167,7 @@ resource "aws_backup_report_plan" "this" {
     organization_units   = each.value.organization_units
     regions              = each.value.regions
     framework_arns       = var.framework_controls != null ? concat([aws_backup_framework.this[0].arn], each.value.framework_arns) : each.value.framework_arns
-    number_of_frameworks = length(each.value.framework_arns)
+    number_of_frameworks = var.framework_controls != null ? length(concat([aws_backup_framework.this[0].arn], each.value.framework_arns)) : length(each.value.framework_arns)
   }
 
   tags = var.tags
