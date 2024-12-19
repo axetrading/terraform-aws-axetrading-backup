@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.2](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.4.1...v1.4.2) (2024-12-19)
+
+### Bug Fixes
+
+* fixing iam policy restore / backup for s3 ([23b0c71](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/23b0c713806ce2d3efdeeaa3f52dcc80c6d202eb))
+* Merge remote-trackng branch 'refs/remotes/origin/main' ([0306c80](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/0306c80b432031e0a2a1a2cf6c3208f02c113c80))
+* semantic version plugins ([a50beec](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/a50beecdc3eebd2e2f609d0c732a267a1e6942bb))
+
 ### [1.4.1](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.4.0...v1.4.1) (2024-03-26)
 
 
