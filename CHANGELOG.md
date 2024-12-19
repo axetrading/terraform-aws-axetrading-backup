@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.4.1](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.4.0...v1.4.1) (2024-03-26)
+
+
+### Bug Fixes
+
+* fix number of frameworks when framework controls is specified ([b236f35](https://github.com/axetrading/terraform-aws-axetrading-backup/commit/b236f35ff78f61b87b6af82a2ec9db99aa862019))
+
 ## [1.4.0](https://github.com/axetrading/terraform-aws-axetrading-backup/compare/v1.3.2...v1.4.0) (2024-03-26)
 
 
